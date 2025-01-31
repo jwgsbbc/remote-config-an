@@ -1,4 +1,4 @@
-package uk.co.bbc.remoteconfig.sampleapp
+package uk.co.bbc.remoteconfig
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
+// TODO: make the polling application-lifecycle aware
 @OptIn(ExperimentalCoroutinesApi::class)
 class PollingRepository(
     dataSource: () -> Result<ByteArray>,

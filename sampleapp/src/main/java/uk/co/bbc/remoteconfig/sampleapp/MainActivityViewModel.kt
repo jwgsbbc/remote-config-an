@@ -2,6 +2,7 @@ package uk.co.bbc.remoteconfig.sampleapp
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.map
+import uk.co.bbc.remoteconfig.Status
 
 class MainActivityViewModel(repo: AppRemoteConfigRepo): ViewModel() {
     val uiState = repo.configFlow.map { it.toUiState() }

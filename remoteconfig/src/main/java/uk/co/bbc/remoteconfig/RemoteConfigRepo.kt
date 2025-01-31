@@ -1,4 +1,4 @@
-package uk.co.bbc.remoteconfig.sampleapp
+package uk.co.bbc.remoteconfig
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
