@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 
 fun MainActivityViewModel(creationExtras: CreationExtras): MainActivityViewModel {
     val application = creationExtras[APPLICATION_KEY]!!
-    val remoteConfigRepo = AppRemoteConfigRepo()
+    val remoteConfigRepo = AppRemoteConfigRepo(application)
     return MainActivityViewModel(remoteConfigRepo)
 }
 

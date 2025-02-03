@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.update
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -19,7 +20,7 @@ class PollingRepository(
     pollingConfigFlow: Flow<PollingConfig> = flowOf(defaultPollingConfig)
 ) {
 
-    private val retryFlow = MutableStateFlow(Unit)
+    private val retryFlow = MutableStateFlow(0)
 
     val dataFlow: Flow<Result<ByteArray>> = pollingConfigFlow.distinctUntilChanged()
         .combine(retryFlow) { pollingConfig, _ -> pollingConfig }
@@ -33,7 +34,7 @@ class PollingRepository(
         }
 
     fun retry() {
-        retryFlow.tryEmit(Unit)
+        retryFlow.update { it + 1 }
     }
 }
 

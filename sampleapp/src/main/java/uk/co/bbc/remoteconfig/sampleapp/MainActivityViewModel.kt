@@ -4,8 +4,9 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.map
 import uk.co.bbc.remoteconfig.Status
 
-class MainActivityViewModel(repo: AppRemoteConfigRepo): ViewModel() {
+class MainActivityViewModel(private val repo: AppRemoteConfigRepo): ViewModel() {
     val uiState = repo.configFlow.map { it.toUiState() }
+    fun retry() = repo.retry()
 }
 
 private fun Result<AppStatus>.toUiState(): MainUiState {
