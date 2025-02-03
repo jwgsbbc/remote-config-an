@@ -16,7 +16,7 @@ import kotlin.time.Duration.Companion.seconds
 // TODO: make the polling application-lifecycle aware
 @OptIn(ExperimentalCoroutinesApi::class)
 class PollingRepository(
-    dataSource: () -> Result<ByteArray>,
+    dataSource: suspend () -> Result<ByteArray>,
     pollingConfigFlow: Flow<PollingConfig> = flowOf(defaultPollingConfig)
 ) {
 

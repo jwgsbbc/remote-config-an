@@ -12,7 +12,7 @@ interface RemoteConfigRepo<AC: Any, RC: Any> {
 }
 
 inline fun <reified AC: Any, reified RC: Any> RemoteConfigRepo(
-    noinline dataSource: () -> Result<ByteArray>,
+    noinline dataSource: suspend () -> Result<ByteArray>,
     context: Context,
     configVersionName: String,
     cacheDir: String = "remote_config_cache",

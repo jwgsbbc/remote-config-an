@@ -11,7 +11,7 @@ fun FallbackCacheDataSource(
     directory: String,
     configVersion: String,
     ttl: Duration,
-    dataSource: () -> Result<ByteArray>
+    dataSource: suspend () -> Result<ByteArray>
 ): FallbackCacheDataSource {
     return FallbackCacheDataSource(
         directory = File(context.cacheDir, directory),
@@ -26,9 +26,9 @@ class FallbackCacheDataSource(
     private val name: String,
     private val ttl: Duration,
     // TODO: add timeout and suspend
-    private val dataSource: () -> Result<ByteArray>,
+    private val dataSource: suspend () -> Result<ByteArray>,
     private val timeProvider: () -> Long = { System.currentTimeMillis() }
-): () -> Result<ByteArray> {
+): suspend () -> Result<ByteArray> {
 
     private val file = File(directory, name)
 
@@ -43,7 +43,7 @@ class FallbackCacheDataSource(
         }
     }
 
-    override fun invoke(): Result<ByteArray> {
+    override suspend fun invoke(): Result<ByteArray> {
         return Result.runCatching {
             // TODO: this currently is cache-first whereas we want just a fast fallback to this long term cache
             val expiry = timeProvider() - ttl.inWholeMilliseconds
